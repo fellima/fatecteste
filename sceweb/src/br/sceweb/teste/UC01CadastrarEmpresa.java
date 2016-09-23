@@ -41,12 +41,19 @@ public class UC01CadastrarEmpresa {
 		assertEquals(1,empresaDAO.adiciona(empresa));
 	}
 	
+	@Test(expected = RuntimeException.class)
+	public void CT02UC01FBCadastra_com_cnpj_ja_cadastrado() {
+		empresaDAO.adiciona(empresa);
+		empresaDAO.adiciona(empresa);
+	}
+	
 	@Test
-	public void CT02UC01FBCadastra_com_sucesso() {
-		assertEquals(0,empresaDAO.adiciona(empresa));
+	public void CT03UC01FBExclusao_para_cnpj_invalido() {
+		assertEquals(0,empresaDAO.exclui("1"));
 	}
 	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		empresaDAO.exclui("89424232000180");
 	}
 }
